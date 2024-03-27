@@ -3,7 +3,14 @@
     const params = new URLSearchParams(window.location.search);
     const nome = params.get('nome');
     const codSala = params.get('codSala');
+
+    const socket = io( { query: "nome=" + nome + "&codSala=" + codSala });
+
     document.addEventListener("DOMContentLoaded", function() {
+
+        socket.on("enviarMsg", (msg) => {
+            document.getElementById("chat").innerHTML += `<div><b>${msg.nome}: </b> ${msg.texto}</div`;
+        })
 
         entrar();
 
@@ -13,6 +20,7 @@
 
             if(msg != "") {
                 //enviar texto para os participantes
+                io.emit("enviarMsg", { texto: msg, nome: nome });
                 document.getElementById("txtMsg").value = "";
             }
             else {
