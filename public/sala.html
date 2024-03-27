@@ -12,15 +12,13 @@
             document.getElementById("chat").innerHTML += `<div><b>${msg.nome}: </b> ${msg.texto}</div`;
         })
 
-        entrar();
-
         document.getElementById("btnEnviar").addEventListener("click", function() {
 
             let msg = document.getElementById("txtMsg").value;
 
             if(msg != "") {
                 //enviar texto para os participantes
-                io.emit("enviarMsg", { texto: msg, nome: nome });
+                socket.emit("enviarMsg", { texto: msg, nome: nome });
                 document.getElementById("txtMsg").value = "";
             }
             else {
