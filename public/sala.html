@@ -1,0 +1,36 @@
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const nome = params.get('nome');
+    const codSala = params.get('codSala');
+    document.addEventListener("DOMContentLoaded", function() {
+
+        entrar();
+
+        document.getElementById("btnEnviar").addEventListener("click", function() {
+
+            let msg = document.getElementById("txtMsg").value;
+
+            if(msg != "") {
+                //enviar texto para os participantes
+                document.getElementById("txtMsg").value = "";
+            }
+            else {
+                alert("insira uma mensagem");
+            }
+        })
+    })
+</script>
+
+<h1>Chat Online</h1>
+
+<div>
+    <h2>Bem vindo à sala!</h2>
+    <div id="chat">
+
+    </div>
+    <div>
+        <input type="text" id="txtMsg" placeholder="digite aqui sua mensagem">
+        <button id="btnEnviar">Enviar</button>
+    </div>
+</div>

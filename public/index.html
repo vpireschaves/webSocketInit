@@ -1,0 +1,47 @@
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        document.getElementById("iniciar").addEventListener("click", function() {
+
+            let nome = document.getElementById("nomeJogador").value;
+            let codSala = document.getElementById("codSala").value;
+
+            fetch("http://localhost:5000/validar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({nome: nome, sala: codSala})
+        })
+        .then(r=> {
+            return r.json();
+        })
+        .then(r=> {
+            if(r.cheia == false)
+                window.location.href = "/sala.html?nome=" + nome + "&codSala=" + codSala;
+            else{
+                alert("Sala cheia!!!");
+            }
+        })
+
+            
+        })
+    })
+</script>
+
+<h1>Chat Online</h1>
+
+<div>
+    <div>
+        <div>
+            <label>Digite seu nome</label>
+            <input type="text" id="nomeJogador">
+        </div>
+        <div>
+            <label>Código da sala</label>
+            <input type="text" id="codSala">
+        </div>
+        <button id="iniciar">Entrar</button>
+    </div>
+</div>
